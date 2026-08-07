@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "touchgrass-trader"
+version = "1.0.0"
+description = "Touchgrass Trader — Chill stock management for humans who'd rather touch grass than stare at candle charts all day."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Tiancheng & Touchgrass AI Team"}
+]
+keywords = ["stock-trading", "ai-agent", "kronos", "serenity", "uzi", "stock-analysis", "github-actions", "antigravity", "claude"]
+dependencies = [
+    "yfinance>=0.2.36",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "pyyaml>=6.0",
+    "requests>=2.31.0",
+    "pydantic>=2.0.0"
+]
+
+[project.scripts]
+touchgrass = "touchgrass.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/tianchengc/touchgrass"
+Repository = "https://github.com/tianchengc/touchgrass"

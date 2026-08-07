@@ -1,0 +1,74 @@
+name: 🌿 Touchgrass Market Runner
+
+on:
+  schedule:
+    # Morning Run: 2 hours after US market open (11:30 AM EST / 15:30 UTC)
+    - cron: '30 15 * * 1-5'
+    # Afternoon Run: 2 hours before US market close (2:00 PM EST / 19:00 UTC)
+    - cron: '0 19 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      run_type:
+        description: 'Type of market run (morning, afternoon, manual)'
+        required: true
+        default: 'manual'
+
+jobs:
+  touchgrass-run:
+    runs-on: ubuntu-latest
+    name: Execute Touchgrass AI Analysis & Portfolio Digest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: 🌿 Run Touchgrass Morning Market Check
+        if: github.event.schedule == '30 15 * * 1-5' || github.event.inputs.run_type == 'morning'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          python -m touchgrass.cli run --type morning
+
+      - name: 🌿 Run Touchgrass Afternoon Market Check
+        if: github.event.schedule == '0 19 * * 1-5' || github.event.inputs.run_type == 'afternoon'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          python -m touchgrass.cli run --type afternoon
+
+      - name: 🌿 Run Touchgrass Manual Market Run
+        if: github.event.inputs.run_type == 'manual' || (github.event.schedule != '30 15 * * 1-5' && github.event.schedule != '0 19 * * 1-5' && github.event_name != 'schedule')
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python -m touchgrass.cli run --type scheduled
+
+      - name: 💾 Commit updated Watchlist & Portfolio state
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(touchgrass): auto-update watchlist & portfolio digest [skip ci]"
+          file_pattern: "touchgrass/config/watchlist.json config/watchlist.json"

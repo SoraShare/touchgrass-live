@@ -1,0 +1,62 @@
+# Touchgrass Trader Settings Configuration
+
+app:
+  name: "Touchgrass Trader"
+  version: "1.0.0"
+  tagline: "Touch Grass & Trade Effortlessly"
+
+market:
+  default_exchange: "US"
+  currency: "USD"
+  trading_days_only: true
+  morning_run_time: "11:30" # 2 hours after US market open (11:30 AM EST)
+  afternoon_run_time: "14:00" # 2 hours before US market close (2:00 PM EST)
+
+llm:
+  # Supported providers: claude, openai, gemini, deepseek, qwen, ollama
+  default_provider: "gemini"
+  model_name: "gemini-2.5-flash" # or claude-3-5-sonnet-20241022, gpt-4o, deepseek-chat
+  temperature: 0.2
+  max_tokens: 4096
+
+portfolio:
+  watchlist_file: "config/watchlist.json"
+  max_portfolio_size: 10
+  stop_loss_pct: 0.08       # Default 8% stop loss
+  take_profit_pct: 0.20      # Default 20% take profit
+  max_position_size_pct: 0.15 # Max 15% per stock
+
+scanner:
+  enable_breakout_scan: true
+  enable_serenity_scan: true
+  min_volume: 500000
+  min_price: 5.00
+  max_price: 1000.00
+  max_candidates_to_add: 3
+
+subprojects:
+  kronos_enabled: true
+  serenity_enabled: true
+  uzi_enabled: true
+  daily_stock_analysis_enabled: true
+
+notifications:
+  channels:
+    - console
+    # - telegram
+    # - email
+    # - discord
+    # - serverchan
+  telegram:
+    bot_token: "${TELEGRAM_BOT_TOKEN}"
+    chat_id: "${TELEGRAM_CHAT_ID}"
+  email:
+    smtp_server: "${SMTP_SERVER}"
+    smtp_port: 587
+    sender_email: "${SENDER_EMAIL}"
+    sender_password: "${SENDER_PASSWORD}"
+    receiver_email: "${RECEIVER_EMAIL}"
+  discord:
+    webhook_url: "${DISCORD_WEBHOOK_URL}"
+  serverchan:
+    sendkey: "${SERVERCHAN_SENDKEY}"
