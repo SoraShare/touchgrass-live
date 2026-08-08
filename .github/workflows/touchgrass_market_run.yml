@@ -44,7 +44,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          python -m touchgrass.cli run --type morning
+          python main.py run --type morning
 
       - name: 🌿 Run Touchgrass Afternoon Market Check
         if: github.event.schedule == '0 19 * * 1-5' || github.event.inputs.run_type == 'afternoon'
@@ -56,7 +56,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          python -m touchgrass.cli run --type afternoon
+          python main.py run --type afternoon
 
       - name: 🌿 Run Touchgrass Manual Market Run
         if: github.event.inputs.run_type == 'manual' || (github.event.schedule != '30 15 * * 1-5' && github.event.schedule != '0 19 * * 1-5' && github.event_name != 'schedule')
@@ -65,10 +65,10 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          python -m touchgrass.cli run --type scheduled
+          python main.py run --type scheduled
 
       - name: 💾 Commit updated Watchlist & Portfolio state
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore(touchgrass): auto-update watchlist & portfolio digest [skip ci]"
-          file_pattern: "touchgrass/config/watchlist.json config/watchlist.json"
+          file_pattern: "config/watchlist.json"

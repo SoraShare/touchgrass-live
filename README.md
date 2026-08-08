@@ -8,9 +8,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Market%20Runner-brightgreen.svg)](.github/workflows/touchgrass_market_run.yml)
+[![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Market%20Runner-2088FF?logo=github-actions&logoColor=white)](.github/workflows/touchgrass_market_run.yml)
 [![AI Agent Compatible](https://img.shields.io/badge/AI%20Agent-Antigravity%20%7C%20Claude%20%7C%20Codex-purple.svg)](AGENTS.md)
-[![Subprojects Integrated](https://img.shields.io/badge/Powered%20By-Kronos%20%7C%20Serenity%20%7C%20Uzi%20%7C%20DailyStock-orange.svg)](#integrated-subprojects)
+[![Subprojects Integrated](https://img.shields.io/badge/Powered%20By-Kronos%20%7C%20Serenity%20%7C%20Uzi%20%7C%20DailyStock-orange.svg)](#-integrated-subprojects)
 
 ---
 
@@ -26,7 +26,7 @@ Touchgrass turns complex quantitative tools into a zero-effort, automated market
 
 ---
 
-## 🚀 Key Features
+## ✨ Features
 
 * 🤖 **AI Agent Native (`/touchgrass`)**: Built to integrate natively into **Google Antigravity**, **Claude Desktop**, **Codex**, and **Cursor**. Ask your agent to run analysis, scan for breakouts, or update your portfolio.
 * ⏰ **Automated Twice-Daily Market Check**: GitHub Actions workflow runs every trading day (11:30 AM EST & 2:00 PM EST) to evaluate portfolio health and discover high-probability stocks.
@@ -35,6 +35,86 @@ Touchgrass turns complex quantitative tools into a zero-effort, automated market
 * 👨‍💼 **65-Investor Persona Panel**: Cross-evaluates every stock through 7 legendary investment factions (Buffett/Munger value, Cathie Wood tech growth, Dalio macro, Minervini momentum, Simons quant).
 * 📈 **Kronos AI Time-Series Predictions**: Uses **Kronos** financial deep learning to forecast 5-day directional momentum.
 * 📱 **Multi-Channel Notification Digest**: Generates clean, stress-free markdown alerts sent via Telegram, Email, Discord, ServerChan, or Webhooks.
+
+---
+
+## 🚀 Quick Start
+
+### Option 1: GitHub Actions (Recommended ⭐)
+
+> **5 minutes setup, 100% free, zero maintenance, no server required.**
+
+#### 1. Fork this Repository
+Click the **Fork** button at the top right of this page to create your personal copy.
+
+#### 2. Configure Repository Secrets
+Go to your forked repository: `Settings` ➔ `Secrets and variables` ➔ `Actions` ➔ `New repository secret`.
+
+**AI Model API Keys (Configure at least one)**
+
+| Secret Name | Description | Required |
+|-------------|-------------|:--------:|
+| `GEMINI_API_KEY` | Google Gemini API Key | **Recommended** |
+| `ANTHROPIC_API_KEY` | Anthropic Claude API Key | Optional |
+| `OPENAI_API_KEY` | OpenAI API Key (or DeepSeek / Qwen API) | Optional |
+
+**Notification Channels (Configure at least one)**
+
+| Secret Name | Description |
+|-------------|-------------|
+| `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` | Telegram Bot Notifications |
+| `DISCORD_WEBHOOK_URL` | Discord Webhook Notifications |
+| `SERVERCHAN_SENDKEY` | ServerChan Push Notifications |
+| `SENDER_EMAIL` + `SENDER_PASSWORD` + `RECEIVER_EMAIL` | Email Notifications |
+
+#### 3. Validate & Run GitHub Actions
+1. Go to the **Actions** tab in your repository.
+2. Enable workflows by clicking **"I understand my workflows, go ahead and enable them"**.
+3. Select **🌿 Touchgrass Market Runner** from the left sidebar.
+4. Click **Run workflow** ➔ Select `manual` ➔ Click **Run workflow**.
+5. Check the execution logs to verify that market analysis and notification delivery succeed!
+
+---
+
+### Option 2: Local CLI Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/tianchengc/touchgrass.git
+cd touchgrass
+
+# Install dependencies
+pip install -r requirements.txt
+pip install -e .
+
+# Copy environment template
+cp .env.example .env
+
+# Run full market evaluation & portfolio update
+python main.py run
+
+# Scan US market for technical breakouts & supply-chain leaders
+python main.py scan --max 5
+
+# Perform 360-degree deep analysis on a stock ticker
+python main.py analyze NVDA
+
+# View current watchlist and holdings
+python main.py watchlist
+```
+
+---
+
+## 🤖 Using with AI Agents (Antigravity, Claude, Codex, Cursor)
+
+Touchgrass provides a dedicated **AI Agent Skill** ([`skills/touchgrass/SKILL.md`](skills/touchgrass/SKILL.md) & [`AGENTS.md`](AGENTS.md)).
+
+Simply tell your AI agent:
+> *"Touch grass and check my stock portfolio."*  
+> *"Scan the market for top breakout stocks and add them to my touchgrass watchlist."*  
+> *"Run touchgrass analysis on NVDA and tell me if 65 investor panel approves."*
+
+Your agent will invoke `touchgrass` CLI commands under the hood and summarize the decisions for you.
 
 ---
 
@@ -59,84 +139,6 @@ flowchart TD
     Decision --> Notifier["🔔 Notification Dispatch (Telegram / Email / Discord)"]
     Decision --> AutoCommit["💾 Auto-Commit Updated Portfolio State"]
 ```
-
----
-
-## ⚡ Quickstart Guide
-
-### 1. Local Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/tianchengc/touchgrass.git
-cd touchgrass
-
-# Install dependencies
-pip install -r requirements.txt
-pip install -e .
-```
-
-### 2. Configure Environment
-
-Copy `.env.example` to `.env` and set your preferred AI model API keys and notification channels:
-
-```bash
-cp .env.example .env
-```
-
-```env
-# AI Model Keys (Gemini, Claude, OpenAI, or DeepSeek)
-GEMINI_API_KEY="your_api_key_here"
-
-# Notifications (Optional)
-TELEGRAM_BOT_TOKEN="your_bot_token"
-TELEGRAM_CHAT_ID="your_chat_id"
-```
-
-### 3. CLI Usage
-
-```bash
-# Run full market evaluation & portfolio update
-python3 src/cli.py run
-
-# Scan US market for technical breakouts & supply-chain leaders
-python3 src/cli.py scan --max 5
-
-# Perform 360-degree deep analysis on a stock ticker
-python3 src/cli.py analyze NVDA
-
-# View current watchlist and holdings
-python3 src/cli.py watchlist
-
-# Add stock to watchlist
-python3 src/cli.py add PLTR --target 28.50 --notes "Cup and handle breakout"
-```
-
----
-
-## 🤖 Using with AI Agents (Antigravity, Claude, Codex, Cursor)
-
-Touchgrass provides a dedicated **AI Agent Skill** (`skills/touchgrass/SKILL.md` & `AGENTS.md`).
-
-Simply tell your AI agent:
-> *"Touch grass and check my stock portfolio."*  
-> *"Scan the market for top breakout stocks and add them to my touchgrass watchlist."*  
-> *"Run touchgrass analysis on NVDA and tell me if 65 investor panel approves."*
-
-Your agent will invoke `touchgrass` CLI commands under the hood and summarize the decisions for you.
-
----
-
-## 🔄 GitHub Actions Setup ("Fork & Forget")
-
-You can host Touchgrass on GitHub for free to run automated market scans twice a day:
-
-1. **Fork this Repository**: Click the **Fork** button on GitHub.
-2. **Set Repository Secrets**: Go to `Settings` -> `Secrets and variables` -> `Actions` and add:
-   * `GEMINI_API_KEY` (or `ANTHROPIC_API_KEY` / `OPENAI_API_KEY`)
-   * `TELEGRAM_BOT_TOKEN` & `TELEGRAM_CHAT_ID` (optional, for mobile alerts)
-3. **Customize Watchlist**: Edit `config/watchlist.json` with your target stocks and entry prices.
-4. **Relax**: Touchgrass will run automatically at **11:30 AM EST** and **2:00 PM EST** on every US trading day.
 
 ---
 
