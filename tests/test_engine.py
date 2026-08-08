@@ -1,9 +1,20 @@
 import unittest
 import tempfile
+import sys
 from pathlib import Path
-from touchgrass.src.scanner import AutoStockScanner
-from touchgrass.src.analyzer import StockAnalyzer
-from touchgrass.src.engine import TouchgrassEngine
+
+TOUCHGRASS_ROOT = Path(__file__).resolve().parents[1]
+if str(TOUCHGRASS_ROOT) not in sys.path:
+    sys.path.insert(0, str(TOUCHGRASS_ROOT))
+
+try:
+    from touchgrass.src.scanner import AutoStockScanner
+    from touchgrass.src.analyzer import StockAnalyzer
+    from touchgrass.src.engine import TouchgrassEngine
+except ImportError:
+    from src.scanner import AutoStockScanner
+    from src.analyzer import StockAnalyzer
+    from src.engine import TouchgrassEngine
 
 
 class TestTouchgrassEngine(unittest.TestCase):

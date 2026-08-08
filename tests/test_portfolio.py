@@ -2,8 +2,17 @@ import unittest
 import os
 import json
 import tempfile
+import sys
 from pathlib import Path
-from touchgrass.src.portfolio import PortfolioManager
+
+TOUCHGRASS_ROOT = Path(__file__).resolve().parents[1]
+if str(TOUCHGRASS_ROOT) not in sys.path:
+    sys.path.insert(0, str(TOUCHGRASS_ROOT))
+
+try:
+    from touchgrass.src.portfolio import PortfolioManager
+except ImportError:
+    from src.portfolio import PortfolioManager
 
 
 class TestPortfolioManager(unittest.TestCase):

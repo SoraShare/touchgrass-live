@@ -4,41 +4,62 @@
 
 # 🌿 Touchgrass Trader (`touchgrass`)
 
-**Chill stock management for humans who'd rather touch grass than stare at candle charts all day.**
+**Disciplined Swing Trading decision engine for humans who'd rather touch grass than stare at candle charts all day.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Strategy: Swing Trading](https://img.shields.io/badge/Strategy-Swing%20Trading%20(5--20%20Days)-emerald.svg)](#-swing-trading-philosophy)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Market%20Runner-2088FF?logo=github-actions&logoColor=white)](.github/workflows/touchgrass_market_run.yml)
 [![AI Agent Compatible](https://img.shields.io/badge/AI%20Agent-Antigravity%20%7C%20Claude%20%7C%20Codex-purple.svg)](AGENTS.md)
-[![Subprojects Integrated](https://img.shields.io/badge/Powered%20By-Kronos%20%7C%20Serenity%20%7C%20Uzi%20%7C%20DailyStock-orange.svg)](#-integrated-subprojects)
+[![Subprojects Integrated](https://img.shields.io/badge/Subprojects-Kronos%20%7C%20Serenity%20%7C%20Uzi%20%7C%20DailyStock-orange.svg)](#-open-source-credits--integrated-subprojects)
 
 ---
 
 </div>
 
-## 📖 The Story: Why Touchgrass?
+## 📈 Swing Trading Philosophy: Not Intra-Day Noise
 
-Most retail investors lose money—not because they lack information, but because they spend **too much time** obsessing over 5-minute candle charts, getting tricked by social media hype groups, or panic selling during healthy pullbacks.
+**Touchgrass Trader strictly promotes a Swing Trading Strategy (5 to 20 days holding period).**
 
-**Touchgrass Trader** was built on a simple premise: **Go touch grass while AI manages your stock portfolio with institutional discipline.**
+It is **NOT** a high-frequency day-trading bot. Most retail traders lose capital trying to time 5-minute candle spikes or reacting emotionally to intraday noise.
 
-Touchgrass turns complex quantitative tools into a zero-effort, automated market assistant. It runs twice a day—once 2 hours after market open to check early trends, and once 2 hours before market close to execute position adjustments—dispatched directly to your phone via Telegram, Email, or Discord.
-
----
-
-## ✨ Features
-
-* 🤖 **AI Agent Native (`/touchgrass`)**: Built to integrate natively into **Google Antigravity**, **Claude Desktop**, **Codex**, and **Cursor**. Ask your agent to run analysis, scan for breakouts, or update your portfolio.
-* ⏰ **Automated Twice-Daily Market Check**: GitHub Actions workflow runs every trading day (11:30 AM EST & 2:00 PM EST) to evaluate portfolio health and discover high-probability stocks.
-* 🔍 **Auto Stock Selection & US Scanner**: Integrates **BreakoutAnalysis** (scanning ~8,000 US equities for VCP contraction & volume surges) and **Serenity** (discovering supply chain bottleneck monopolies like NVDA, TSM, AVGO).
-* 🛡️ **Pig-Butchering Scam & Trap Security**: Features **Uzi Trap Detector** to automatically audit stocks against pump-and-dump signals, social media "teacher" traps, and illiquid manipulation.
-* 👨‍💼 **65-Investor Persona Panel**: Cross-evaluates every stock through 7 legendary investment factions (Buffett/Munger value, Cathie Wood tech growth, Dalio macro, Minervini momentum, Simons quant).
-* 📈 **Kronos AI Time-Series Predictions**: Uses **Kronos** financial deep learning to forecast 5-day directional momentum.
-* 📱 **Multi-Channel Notification Digest**: Generates clean, stress-free markdown alerts sent via Telegram, Email, Discord, ServerChan, or Webhooks.
+Instead, Touchgrass:
+* **Identifies Multi-Day Swings**: Focuses on high-conviction structural trends, supply-chain monopolies, and institutional accumulation.
+* **Runs Twice a Day**:
+  - **11:30 AM EST (Morning Check)**: Evaluates early market sentiment & trend confirmation 2 hours after US market open.
+  - **2:00 PM EST (Afternoon Check)**: Rebalances positions & executes disciplined entry/exit alerts 2 hours before US market close.
+* **Enforces Risk Discipline**: Sets 8% trailing stop-loss bounds and 20% swing take-profit targets to eliminate emotional over-trading.
 
 ---
 
-## 🚀 Quick Start
+## 🔮 How Kronos AI Time-Series Prediction Model Works in Touchgrass
+
+[**Kronos**](https://github.com/shishi-ai/Kronos) is a foundation deep-learning model trained on financial time-series (OHLCV K-line sequences). Just as LLMs predict the next word in a sentence, Kronos predicts future K-line price trajectories.
+
+### How Kronos is integrated:
+1. **Historical Sequence Tokenization**: Touchgrass feeds recent daily price sequences (Open, High, Low, Close, Volume) of watchlist stocks into Kronos.
+2. **5-Day Momentum Inference**: Kronos outputs projected 5-to-10 day directional momentum probabilities (`BULLISH`, `NEUTRAL`, `BEARISH`) with confidence metrics.
+3. **Multi-Factor Decision Signal**: Touchgrass combines Kronos's time-series prediction with Uzi's 65-Investor Panel and Serenity's Supply Chain Scorecard:
+   $$\text{Touchgrass Score} = 0.40 \times \text{Investor Panel} + 0.30 \times \text{Kronos Trend} + 0.30 \times \text{KOL Sentiment}$$
+
+---
+
+## 🙏 Open-Source Credits & Integrated Subprojects
+
+Touchgrass stands on the shoulders of giants. We directly integrate, acknowledge, and actively maintain updated versions of these outstanding open-source projects in `touchgrass/subprojects/`:
+
+| Subproject | Original Author / Repository | Role in Touchgrass Trader |
+|------------|------------------------------|----------------------------|
+| **`daily_stock_analysis`** | [ZhuLinsen/daily_stock_analysis](https://github.com/ZhuLinsen/daily_stock_analysis) | Multi-LLM provider engine, market data fetchers, report persistence to `reports/`, and multi-channel notifications. |
+| **`Kronos`** | [shishi-ai/Kronos](https://github.com/shishi-ai/Kronos) | Deep learning K-line time-series foundation model for 5-day directional swing predictions. |
+| **`serenity-skill`** | [tianchengc/serenity-skill](https://github.com/tianchengc/serenity-skill) | Supply chain chokepoint discovery (NVDA, TSM, AVGO, ASML) and KOL conviction scorecards. |
+| **`uzi-skill`** | [tianchengc/uzi-skill](https://github.com/tianchengc/uzi-skill) | 65-Investor Persona Panel voting (Buffett, Wood, Dalio, Minervini, Simons) & Pig-Butchering Scam Trap Detector. |
+
+> 📌 **Maintenance Note**: We directly maintain synced, optimized versions of these subprojects inside `touchgrass/subprojects/` to ensure daily report storage (`reports/*.md`), custom bug fixes, and zero-config GitHub Actions deployment.
+
+---
+
+## ⚡ Quick Start
 
 ### Option 1: GitHub Actions (Recommended ⭐)
 
@@ -72,7 +93,7 @@ Go to your forked repository: `Settings` ➔ `Secrets and variables` ➔ `Action
 2. Enable workflows by clicking **"I understand my workflows, go ahead and enable them"**.
 3. Select **🌿 Touchgrass Market Runner** from the left sidebar.
 4. Click **Run workflow** ➔ Select `manual` ➔ Click **Run workflow**.
-5. Check the execution logs to verify that market analysis and notification delivery succeed!
+5. Check execution logs to verify market analysis and daily report creation in `reports/`!
 
 ---
 
@@ -87,16 +108,13 @@ cd touchgrass
 pip install -r requirements.txt
 pip install -e .
 
-# Copy environment template
-cp .env.example .env
-
 # Run full market evaluation & portfolio update
 python main.py run
 
-# Scan US market for technical breakouts & supply-chain leaders
+# Discover swing trading candidates (Supply chain monopolies & KOL scorecards)
 python main.py scan --max 5
 
-# Perform 360-degree deep analysis on a stock ticker
+# Perform 360-degree swing analysis on a stock ticker
 python main.py analyze NVDA
 
 # View current watchlist and holdings
@@ -110,34 +128,30 @@ python main.py watchlist
 Touchgrass provides a dedicated **AI Agent Skill** ([`skills/touchgrass/SKILL.md`](skills/touchgrass/SKILL.md) & [`AGENTS.md`](AGENTS.md)).
 
 Simply tell your AI agent:
-> *"Touch grass and check my stock portfolio."*  
-> *"Scan the market for top breakout stocks and add them to my touchgrass watchlist."*  
-> *"Run touchgrass analysis on NVDA and tell me if 65 investor panel approves."*
+> *"Touch grass and check my swing stock portfolio."*  
+> *"Discover top supply-chain monopoly stocks and add them to my swing watchlist."*  
+> *"Run touchgrass analysis on NVDA and tell me Kronos trend prediction."*
 
 Your agent will invoke `touchgrass` CLI commands under the hood and summarize the decisions for you.
 
 ---
 
-## 🏗️ Architecture & Integrated Subprojects
-
-Touchgrass seamlessly unifies four powerhouse open-source investment engines:
+## 🏗️ Architecture Diagram
 
 ```mermaid
 flowchart TD
-    USMarket["🇺🇸 US Equities (~8,000 Stocks)"] --> Scanner["🔍 Auto Stock Discovery"]
-    Watchlist["📋 User Portfolio & Watchlist"] --> Evaluator["🌿 Touchgrass Engine"]
+    Watchlist["📋 User Swing Watchlist & Portfolio"] --> Engine["🌿 Touchgrass Engine"]
     
-    subgraph Integrated Subprojects
-        Scanner --> Breakout["BreakoutAnalysis (VCP & Volume Surges)"]
-        Scanner --> Serenity["Serenity (Supply Chain Bottlenecks & KOL Scorecards)"]
-        Evaluator --> Kronos["Kronos (AI Time-Series Trend Prediction)"]
-        Evaluator --> UziPanel["Uzi (65-Investor Persona Panel & Trap Detector)"]
-        Evaluator --> DSA["daily_stock_analysis (Multi-LLM & Multi-Market Data)"]
+    subgraph Integrated Subprojects Credits
+        Engine --> Kronos["🔮 Kronos (5-Day Time-Series Deep Learning Prediction)"]
+        Engine --> Serenity["⛓️ Serenity (Supply Chain Monopolies & KOL Sentiment)"]
+        Engine --> Uzi["👨‍💼 Uzi (65-Investor Persona Panel & Trap Detector)"]
+        Engine --> DSA["📊 daily_stock_analysis (Multi-LLM & Data Providers)"]
     end
     
-    Kronos & UziPanel & DSA --> Decision["🟢/🔴 Touchgrass Trade Decisions (BUY / HOLD / SELL)"]
+    Kronos & Serenity & Uzi & DSA --> Decision["🟢/🔴 Swing Trade Decision (BUY / HOLD / SELL)"]
     Decision --> Notifier["🔔 Notification Dispatch (Telegram / Email / Discord)"]
-    Decision --> AutoCommit["💾 Auto-Commit Updated Portfolio State"]
+    Decision --> ReportFile["💾 Auto-Save Daily Report (reports/latest.md)"]
 ```
 
 ---
@@ -146,17 +160,17 @@ flowchart TD
 
 ```markdown
 🌿 **Touchgrass Trader Market Report** (AFTERNOON RUN) 🌿
-📅 Date: 2026-08-07 | Status: Market Active
+📅 Date: 2026-08-07 | Status: Market Active | Strategy: Swing Trade (5-20 Days)
 --------------------------------------------------
 📊 **Portfolio & Watchlist Health Digest**:
 • **NVDA** (NVIDIA Corporation): $223.96 (+2.27%) | Score: 75.0/100 | Action: 🟡 **HOLD**
-  └ Kronos: BULLISH (82%) | Panel: HOLD
-• **AAPL** (Apple Inc.): $215.50 (+1.10%) | Score: 82.5/100 | Action: 🟢 **BUY**
-  └ Kronos: BULLISH (85%) | Panel: BUY
+  └ Kronos 5-Day Trend: BULLISH (82%) | Panel: HOLD
+• **AAPL** (Apple Inc.): $313.33 (+0.29%) | Score: 74.7/100 | Action: 🟡 **HOLD**
+  └ Kronos 5-Day Trend: BULLISH (82%) | Panel: HOLD
 
-🎯 **Auto-Discovered High-Conviction Candidates**:
-• **ARM** (Arm Holdings plc) - Breakout Scanner (VCP/Volume Surge) | Score: 95 | RS Rating: 96, Rel Vol: 3.1x
+🎯 **Auto-Discovered Swing Candidates**:
 • **TSM** (Taiwan Semiconductor) - Serenity Supply Chain | Score: 95 | Sole manufacturer of advanced AI chips worldwide.
+• **AVGO** (Broadcom Inc) - Serenity Supply Chain | Score: 88 | Custom AI ASICs & Networking Switches.
 
 ✨ *Go touch grass! Touchgrass AI is keeping your portfolio safe.* ✨
 ```

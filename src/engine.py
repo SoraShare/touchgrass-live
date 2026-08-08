@@ -5,6 +5,8 @@ watchlist analysis, auto stock discovery, and report generation.
 """
 
 import sys
+import os
+import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 
@@ -40,8 +42,8 @@ class TouchgrassEngine:
         Executes one full round of market analysis:
         1. Analyzes existing watchlist stocks
         2. Runs market-wide stock scanner (Breakout + Supply Chain)
-        3. Optionally auto-adds top discovered candidate to watchlist
-        4. Generates decision report and dispatches notification
+        3. Auto-adds top discovered candidate to watchlist
+        4. Generates decision report, dispatches notification, and saves report to reports/
         """
         print(f"🌿 Starting Touchgrass Market Round: {run_type.upper()}...")
 
@@ -69,9 +71,32 @@ class TouchgrassEngine:
         report = self.notifier.format_report_markdown(run_type, watchlist_results, candidates)
         self.notifier.dispatch(report)
 
+        # 5. Save report to reports/ directory (daily_stock_analysis pattern)
+        self._save_report(report)
+
         return {
             "run_type": run_type,
             "analyzed_count": len(watchlist_results),
             "discovered_candidates": candidates,
             "report_markdown": report
         }
+
+    def _save_report(self, report_markdown: str):
+        """Saves report markdown to reports/latest.md and reports/report_YYYYMMDD.md."""
+        try:
+            reports_dir = TOUCHGRASS_ROOT / "reports"
+            reports_dir.mkdir(parents=True, exist_ok=True)
+
+            date_str = datetime.datetime.now().strftime("%Y%m%d")
+            latest_file = reports_dir / "latest.md"
+            dated_file = reports_dir / f"report_{date_str}.md"
+
+            with open(latest_file, "w", encoding="utf-8") as f:
+                f.write(report_markdown)
+
+            with open(dated_file, "w", encoding="utf-8") as f:
+                f.write(report_markdown)
+
+            print(f"💾 Report saved to {latest_file} and {dated_file}")
+        except Exception as e:
+            print(f"[TouchgrassEngine] Error saving report files: {e}")
